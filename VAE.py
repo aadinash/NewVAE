@@ -3,6 +3,7 @@ from torch import nn
 from torch.optim import Adam
 from torch.utils.data import DataLoader, TensorDataset
 import torch.nn.functional as F
+from printer import intToSelfies
 
 class VAE(nn.Module):
     def __init__(self, in_dimension, layer_1d, layer_2d, layer_3d, latent_dimension):
@@ -59,7 +60,7 @@ batch_size = 32  # adjust the batch size as needed
 dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 # in_dimension, layer_1d, layer_2d, layer_3d, latent_dimension
-model = VAE(in_dimension=2516, layer_1d=1500, layer_2d=1000, layer_3d=250, latent_dimension=50).to(device)
+model = VAE(in_dimension=2516, layer_1d=1500, layer_2d=1000, layer_3d=250, latent_dimension=80).to(device)
 optimizer = Adam(model.parameters(), lr=1e-3)
 
 def loss_function(x_decoded, x, mu, logvar):
@@ -89,7 +90,8 @@ for epoch in range(num_epochs):
     
     single_batch_example = batch[0][0: 1236] # Remember that the first 1236 elements correspons to the small molecule
     recon_example        = recon_batch[0][0: 1236]
-    print('Label molecul: ', single_batch_example * 111) # Remeber that 111 is the number of unique selfies characters we have 
-    print('Recon example: ', recon_example* 111)
+    print('Label molecule: ', intToSelfies(single_batch_example * 111)) # Remeber that 111 is the number of unique selfies characters we have 
+
+    print('Recon example: ', intToSelfies(recon_example * 111))
     ### end borrowed
 
