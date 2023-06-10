@@ -57,7 +57,9 @@ num_epochs = 10
 data = torch.load('./Data/combined_repr_tensor.pt')
 dataset = TensorDataset(data)
 batch_size = 32  # adjust the batch size as needed
-dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+X_train, X_test = train_test_split(dataset, test_size=0.15, random_state=42)
+X_train, X_val = train_test_split(X_train, test_size=0.17647, random_state=42)
+dataloader = DataLoader(X_train, batch_size=batch_size, shuffle=True)
 
 # in_dimension, layer_1d, layer_2d, layer_3d, latent_dimension
 model = VAE(in_dimension=2516, layer_1d=1500, layer_2d=1000, layer_3d=250, latent_dimension=80).to(device)

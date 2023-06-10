@@ -48,10 +48,8 @@ for i, item in enumerate(selfies_list):
     # We formerly appended tuples. Now, we will just append a concatenation
     concat = torch.cat((encoded_tensor, torch.sigmoid(data[i])))
     x_values.append(concat)
-
 combined_repr_tensor = torch.stack(x_values)
 print(combined_repr_tensor)
-
 # Save the tensor
 torch.save(combined_repr_tensor, './Data/combined_repr_tensor.pt')
 
