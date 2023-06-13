@@ -52,12 +52,11 @@ for i, item in enumerate(selfies_list):
 X_train, X_test = train_test_split(x_values, test_size=0.15, random_state=42)
 
 train_combined_repr_tensor = torch.stack(X_train)
-print(train_combined_repr_tensor)
 # Save the tensor
 torch.save(train_combined_repr_tensor, './Data/train_combined_repr_tensor.pt')
 
 test_combined_repr_tensor = torch.stack(X_test)
-torch.save(train_combined_repr_tensor, './Data/test_combined_repr_tensor.pt')
+torch.save(test_combined_repr_tensor, './Data/test_combined_repr_tensor.pt')
 
 # Save the char_to_idx mapping
 with open('./Data/char_to_idx.pickle', 'wb') as handle:
