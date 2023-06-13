@@ -4,6 +4,7 @@ from torch.optim import Adam
 from torch.utils.data import DataLoader, TensorDataset
 import torch.nn.functional as F
 from printer import intToSelfies
+from sklearn.model_selection import test_train_split
 
 class VAE(nn.Module):
     def __init__(self, in_dimension, layer_1d, layer_2d, layer_3d, latent_dimension):
