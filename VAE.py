@@ -54,12 +54,11 @@ print(f'Using device: {device}')
 num_epochs = 10
 
 # Load the data
-data = torch.load('./Data/combined_repr_tensor.pt')
+data = torch.load('./Data/train_combined_repr_tensor.pt')
+print(data.shape)
 dataset = TensorDataset(data)
 batch_size = 32  # adjust the batch size as needed
-X_train, X_test = train_test_split(dataset, test_size=0.15, random_state=42)
-X_train, X_val = train_test_split(X_train, test_size=0.17647, random_state=42)
-dataloader = DataLoader(X_train, batch_size=batch_size, shuffle=True)
+dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 # in_dimension, layer_1d, layer_2d, layer_3d, latent_dimension
 model = VAE(in_dimension=2516, layer_1d=1500, layer_2d=1000, layer_3d=250, latent_dimension=80).to(device)
@@ -91,9 +90,9 @@ for epoch in range(num_epochs):
     print(f'Epoch {epoch+1}, Loss: {avg_loss}')
     
     single_batch_example = batch[0][0: 1236] # Remember that the first 1236 elements correspons to the small molecule
-    recon_example        = recon_batch[0][0: 1236]
-    print('Label molecule: ', intToSelfies(single_batch_example * 111)) # Remeber that 111 is the number of unique selfies characters we have 
+    recon_example = recon_batch[0][0: 1236]
+    print('Label molecule: ', intToSelfies(single_batch_example * 105)) # Remeber that 111 is the number of unique selfies characters we have 
 
-    print('Recon example: ', intToSelfies(recon_example * 111))
+    print('Recon example: ', intToSelfies(recon_example * 105))
     ### end borrowed
 
